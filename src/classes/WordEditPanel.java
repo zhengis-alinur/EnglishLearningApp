@@ -147,7 +147,7 @@ public final class WordEditPanel extends GrayPanel {
         int responce = Main.WordSupport.isThereTheSameWord(wordList,eng,rus);
         for(Word word: wordList){
             for(String engVer:word.engVersions){
-                if(engVer.equalsIgnoreCase(eng)&&(responce>0)) {
+                if(engVer.equalsIgnoreCase(eng)&&(responce>=2)) {
                     word.addRusVersion(rus);
                     System.out.println("sovpadenie eng");
                     Main.WordSupport.saveWord(word);
@@ -156,7 +156,7 @@ public final class WordEditPanel extends GrayPanel {
                 }
             }
             for(String rusVer:word.rusVersions){
-                if(rusVer.equalsIgnoreCase(rus)&&(responce<0)) {
+                if(rusVer.equalsIgnoreCase(rus)&&(responce<=-2)) {
                     word.addEngVersion(eng);
                     System.out.println("sovpadenie rus");
                     Main.WordSupport.saveWord(word);
@@ -165,13 +165,13 @@ public final class WordEditPanel extends GrayPanel {
                 }
             }
         }
-        if(responce!=-1){
+        if(responce!=0){
             System.out.println("Новое слово создано");
             Word newWord = new Word(eng,rus);
             Main.WordSupport.saveWord(newWord);
             wordList.add(newWord);
+            return true;
         }
-
         return false;
     }
 

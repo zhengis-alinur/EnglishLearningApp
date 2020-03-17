@@ -102,7 +102,7 @@ public class Main {
             for(Word word: checkingWords){
                 for(String engVer:word.engVersions){
                     for(String rusVer:word.rusVersions){
-                        if((engVer.equalsIgnoreCase(eng))&&(rusVer.equalsIgnoreCase(rus))) return -1;
+                        if((engVer.equalsIgnoreCase(eng))&&(rusVer.equalsIgnoreCase(rus))) return 0;
                     }
                 }
                 for(String engVer:word.engVersions){
