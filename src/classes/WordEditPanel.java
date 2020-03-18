@@ -85,15 +85,15 @@ public final class WordEditPanel extends GrayPanel {
             public void actionPerformed(ActionEvent e) {
                 addWordToVocabulary(engWordField.getText(),rusWordField.getText());
                 for(Word w: wordList){
-                    System.out.print("Слово eng: ");
+                    System.out.print("Слово eng:[");
                     for(String engVer:w.engVersions){
-                        System.out.print("-"+engVer+"-");
+                        System.out.print(engVer+", ");
                     }
-                    System.out.print("  rus: ");
+                    System.out.print("]  rus:[ ");
                     for(String rusVer:w.rusVersions){
-                        System.out.print("-"+rusVer+"-");
+                        System.out.print(rusVer+", ");
                     }
-                    System.out.println();
+                    System.out.println("]");
                 }
                 System.out.println("_____________________________________________");
             }

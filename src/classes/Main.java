@@ -11,6 +11,9 @@ public class Main {
     static JFrame mainFrame = new JFrame("MyApp");
     static List<Word> wordList = new ArrayList<>();
     static int SCORE = 0;
+    static List<String> answerList = new ArrayList<>();
+    static List<String> questionList = new ArrayList<>();
+    static List<Boolean> isRightAnswerList = new ArrayList<>();
 
     Dimension vert = new Dimension((int)(FRAME_WIDTH*0.1),FRAME_HEIGHT);
     Dimension hor = new Dimension((int)(FRAME_WIDTH*0.8),(int)(FRAME_HEIGHT*0.3));

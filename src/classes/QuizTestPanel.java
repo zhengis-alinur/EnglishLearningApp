@@ -14,7 +14,8 @@ public class QuizTestPanel extends GrayPanel {
     public JLabel wordLabel;
     public JTextField answer;
     private Word currentWord;
-    private int wordNum = 1;
+    private int wordNum = 0;
+    public int countFieldInt = 0;
 
     public QuizTestPanel() {
         super();
@@ -70,14 +71,29 @@ public class QuizTestPanel extends GrayPanel {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    int countField = Integer.parseInt(quizPanel.countField.getText());
-                    if(wordNum<countField) {
-                        currentWord = wordList.get(quizPanel.randomQueue.get(wordNum++));
-                        System.out.println(wordNum);
-                        wordLabel.setText(currentWord.getRandomEngVersion());
-                    }else{
-                        wordNum=0;
-                        rootCardLayout.show(rootPanel,"resultPanel");
+                    countFieldInt = Integer.parseInt(quizPanel.countField.getText());
+                    System.out.println(wordNum);
+                    currentWord = wordList.get(quizPanel.randomQueue.get(wordNum));
+                    if((!answer.getText().equalsIgnoreCase(""))) {
+                        if(((currentWord.rusVersions.contains(wordLabel.getText()))&&(currentWord.engVersions.contains(answer.getText())))||((currentWord.engVersions.contains(wordLabel.getText()))&&(currentWord.rusVersions.contains(answer.getText())))) {
+                            SCORE++;
+                            isRightAnswerList.add(true);
+                            System.out.println("Compated");
+                        }else{isRightAnswerList.add(false);}
+                        answerList.add(answer.getText());
+                        questionList.add(wordLabel.getText());
+                        wordNum++;
+                        if(wordNum<countFieldInt){
+                            currentWord = wordList.get(quizPanel.randomQueue.get(wordNum));
+                            wordLabel.setText(currentWord.getRandomEngVersion());
+                        }else{
+                            wordNum=0;
+                            answer.setText("");
+                            currentWord = null;
+                            quizPanel.countField.setText("");
+                            resultPanel.renewResultsPanel();
+                            rootCardLayout.show(rootPanel,"resultPanel");
+                        }
                     }
                 }
             }
