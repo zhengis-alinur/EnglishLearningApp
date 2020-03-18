@@ -3,8 +3,6 @@ package classes;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Random;
 
 import static classes.Constants.*;
 import static classes.Main.*;
@@ -95,6 +93,7 @@ public class QuizTestPanel extends GrayPanel {
                             rootCardLayout.show(rootPanel,"resultPanel");
                         }
                     }
+                    answer.setText("");
                 }
             }
         });

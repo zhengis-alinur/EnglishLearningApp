@@ -65,7 +65,7 @@ public class Main {
     }
 
     static class WordSupport{
-        public static List<Word> downloadWords() throws NoWordsException{
+        public static List<Word> downloadWords(){
             File check = new  File("D:\\MyWords");
             vocabSize = check.list().length;
             if(vocabSize==0);

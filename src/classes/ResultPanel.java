@@ -69,14 +69,28 @@ public final class ResultPanel extends GrayPanel{
         center.setLayout(new GridLayout(quizTestPanel.countFieldInt,4,1,1));
 
         for (int i = 0; i < quizTestPanel.countFieldInt; i++) {
-            JLabel english = new JLabel(questionList.get(i));
-            JLabel russian = new JLabel(wordList.get(quizPanel.randomQueue.get(i)).getRandomRusVersion());
+            resultLabel.setText(String.valueOf(SCORE));
+            Word word = wordList.get(quizPanel.randomQueue.get(i));
+            JPanel allEngVersions = new JPanel();
+            allEngVersions.setBackground(mainGray);
+            allEngVersions.setLayout(new GridLayout(word.engVersions.size(),1));
+            JPanel allRusVersions = new JPanel();
+            allRusVersions.setBackground(mainGray);
+            allRusVersions.setLayout(new GridLayout(word.rusVersions.size(),1));
+
+            for(int j = 0; j< word.engVersions.size();j++){
+                JLabel english = new JLabel(word.engVersions.get(j));
+                english.setForeground(Color.white.darker());
+                allEngVersions.add(english);
+            }
+            for(int j = 0; j< word.rusVersions.size();j++){
+                JLabel russian = new JLabel(word.rusVersions.get(j));
+                russian.setForeground(Color.white.darker());
+                allEngVersions.add(russian);
+            }
 
             JLabel answer = new JLabel(String.valueOf(answerList.get(i)));
             JLabel mistake = new JLabel(Boolean.toString(isRightAnswerList.get(i)));
-
-            english.setForeground(Color.white.darker());
-            russian.setForeground(Color.white.darker());
 
             if(isRightAnswerList.get(i).equals(true)) {
                 answer.setForeground(myGreen);
@@ -85,8 +99,8 @@ public final class ResultPanel extends GrayPanel{
                 answer.setForeground(myPink);
                 mistake.setForeground(myPink);
             }
-            center.add(english);
-            center.add(russian);
+            center.add(allEngVersions);
+            center.add(allRusVersions);
             center.add(answer);
             center.add(mistake);
         }

@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import classes.Main.*;
 
 import static classes.Constants.*;
+import static classes.Main.mainFrame;
 
 public final class StartPanel extends GrayPanel {
 
@@ -25,11 +27,16 @@ public final class StartPanel extends GrayPanel {
     @Override
     protected void setCenter() {
         this.center.setLayout(new GridLayout(3,1,1,1));
-
+        center.setBackground(mainGray);
         quizButton = new MyButton("Quiz",myGreen,mainGray.darker());
         quizButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(Main.vocabSize==0){
+                    JOptionPane.showMessageDialog(mainFrame, "NoWordsException",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+                    throw new NoWordsException();
+                }
                 rootCardLayout.show(rootPanel,"quizPanel");
             }
         });

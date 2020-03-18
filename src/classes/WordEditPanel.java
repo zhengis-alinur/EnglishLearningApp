@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static classes.Constants.*;
 import static classes.Main.*;
@@ -83,19 +85,24 @@ public final class WordEditPanel extends GrayPanel {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addWordToVocabulary(engWordField.getText(),rusWordField.getText());
-                for(Word w: wordList){
-                    System.out.print("Слово eng:[");
-                    for(String engVer:w.engVersions){
-                        System.out.print(engVer+", ");
+                if((!engWordField.getText().equalsIgnoreCase(""))&&(!rusWordField.getText().equalsIgnoreCase(""))) {
+                    addWordToVocabulary(engWordField.getText(), rusWordField.getText());
+                    for (Word w : wordList) {
+                        System.out.print("Слово eng:[");
+                        for (String engVer : w.engVersions) {
+                            System.out.print(engVer + ", ");
+                        }
+                        System.out.print("]  rus:[ ");
+                        for (String rusVer : w.rusVersions) {
+                            System.out.print(rusVer + ", ");
+                        }
+                        System.out.println("]");
                     }
-                    System.out.print("]  rus:[ ");
-                    for(String rusVer:w.rusVersions){
-                        System.out.print(rusVer+", ");
-                    }
-                    System.out.println("]");
+                    System.out.println("_____________________________________________");
+                }else{
+                    JOptionPane.showMessageDialog(mainFrame, "Fill all fields",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-                System.out.println("_____________________________________________");
             }
         });
 
@@ -127,7 +134,35 @@ public final class WordEditPanel extends GrayPanel {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                File check = new  File("D:\\MyWords");
+                vocabSize = check.list().length;
+                if(vocabSize==0);
+                String[] fileNames = check.list();
+                for (int i = 1; i <= vocabSize; i++) {
+                    try {
+                        File wordPath = new File(check.getAbsoluteFile()+"\\"+fileNames[i-1]);
+                        FileInputStream fis = new FileInputStream(wordPath);
+                        ObjectInputStream ois = new ObjectInputStream(fis);
+                        Word readword = (Word)ois.readObject();
+                        ois.close();
+                        if(readword.rusVersions.contains(deleteWordField.getText())){
+                            readword.rusVersions.remove(deleteWordField.getText());
+                            FileOutputStream fos = new FileOutputStream(wordPath);
+                            ObjectOutputStream oos = new ObjectOutputStream(fos);
+                            oos.writeObject(readword);
+                            break;
+                        }
+                        if(readword.engVersions.contains(deleteWordField.getText())){
+                            readword.engVersions.remove(deleteWordField.getText());
+                            FileOutputStream fos = new FileOutputStream(wordPath);
+                            ObjectOutputStream oos = new ObjectOutputStream(fos);
+                            oos.writeObject(readword);
+                            break;
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
         });
         center2.add(deleteLabel);

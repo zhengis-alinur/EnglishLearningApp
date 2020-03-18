@@ -40,6 +40,8 @@ public final class QuizPanel extends GrayPanel {
         String aboutFileTextString;
         if(vocabSize>0){
             aboutFileTextString = "   There are "+vocabSize+" words in your vocabulary today";
+        }else if(vocabSize==1){
+            aboutFileTextString = "   There is 1 word in your vocabulary today";
         }else{
             aboutFileTextString = "   There is no word in your vocabulary today";
         }
