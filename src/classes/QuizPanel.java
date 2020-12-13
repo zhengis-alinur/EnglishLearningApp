@@ -3,6 +3,7 @@ package classes;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.util.ArrayList;
 
 import static classes.Constants.*;
@@ -99,6 +100,8 @@ public final class QuizPanel extends GrayPanel {
                 try {
                     Main.wordList = WordSupport.downloadWords();
                 } catch (NoWordsException ex) {
+                    JOptionPane.showMessageDialog(mainFrame, "No words to repeat",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                 System.out.println("happened");
@@ -108,19 +111,19 @@ public final class QuizPanel extends GrayPanel {
                         boolean isNumber = true;
                         for (char ch : num) {
                             if (Character.isDigit(ch)) {
-                                isNumber = isNumber && true;
+                                isNumber = true;
                             } else {
-                                isNumber = isNumber && false;
+                                isNumber = false;
                             }
                         }
                         if(!isNumber){throw new NumberFormatException();}
-                    }else throw new NoWordsException();
+                    }
                     randomQueue = WordSupport.getRandomQueue(Integer.parseInt(countField.getText()));
                     quizTestPanel.wordLabel.setText(wordList.get(randomQueue.get(0)).getRandomEngVersion());
                     rootCardLayout.show(rootPanel,"quizTestPanel");
                 } catch (NumberFormatException ex) {
-                    ex.printStackTrace();
-                } catch (NoWordsException ex) {
+                    JOptionPane.showMessageDialog(mainFrame, "Enter number",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
             }
@@ -130,7 +133,42 @@ public final class QuizPanel extends GrayPanel {
         repeatWithSentencesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rootCardLayout.show(rootPanel,"repeatWithSentencesPanel");
+                try {
+                    Main.wordList = WordSupport.downloadWords();
+                } catch (NoWordsException ex) {
+                    JOptionPane.showMessageDialog(mainFrame, "No words to repeat",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+                System.out.println("happened");
+                try {
+                    if((!countField.getText().equals(""))) {
+                        char[] num = countField.getText().toCharArray();
+                        boolean isNumber = true;
+                        for (char ch : num) {
+                            if (Character.isDigit(ch)) {
+                                isNumber = true;
+                            } else {
+                                isNumber = false;
+                            }
+                        }
+                        if(!isNumber){throw new NumberFormatException();}
+                    }
+                    randomQueue = WordSupport.getRandomQueue(Integer.parseInt(countField.getText()));
+                    repeatWithSentencesPanel.wordLabel.setText(wordList.get(randomQueue.get(0)).getRandomEngVersion());
+                    try {
+                        repeatWithSentencesPanel.bwSentences = new BufferedWriter(new FileWriter(repeatWithSentencesPanel.fileWithSentences,true));
+                    }  catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    rootCardLayout.show(rootPanel,"repeatWithSentencesPanel");
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(mainFrame, "Enter number",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+
             }
         });
 

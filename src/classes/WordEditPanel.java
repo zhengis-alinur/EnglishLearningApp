@@ -99,6 +99,8 @@ public final class WordEditPanel extends GrayPanel {
                         System.out.println("]");
                     }
                     System.out.println("_____________________________________________");
+                    engWordField.setText("");
+                    rusWordField.setText("");
                 }else{
                     JOptionPane.showMessageDialog(mainFrame, "Fill all fields",
                             "ERROR", JOptionPane.ERROR_MESSAGE);

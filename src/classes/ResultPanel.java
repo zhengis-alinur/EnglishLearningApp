@@ -71,12 +71,14 @@ public final class ResultPanel extends GrayPanel{
         for (int i = 0; i < quizTestPanel.countFieldInt; i++) {
             resultLabel.setText(String.valueOf(SCORE));
             Word word = wordList.get(quizPanel.randomQueue.get(i));
+
             JPanel allEngVersions = new JPanel();
             allEngVersions.setBackground(mainGray);
-            allEngVersions.setLayout(new GridLayout(word.engVersions.size(),1));
+            allEngVersions.setLayout(new GridLayout(word.engVersions.size()+1,1,1,1));
+
             JPanel allRusVersions = new JPanel();
             allRusVersions.setBackground(mainGray);
-            allRusVersions.setLayout(new GridLayout(word.rusVersions.size(),1));
+            allRusVersions.setLayout(new GridLayout(word.rusVersions.size()+1,1,1,1));
 
             for(int j = 0; j< word.engVersions.size();j++){
                 JLabel english = new JLabel(word.engVersions.get(j));
@@ -100,7 +102,6 @@ public final class ResultPanel extends GrayPanel{
                 mistake.setForeground(myPink);
             }
             center.add(allEngVersions);
-            center.add(allRusVersions);
             center.add(answer);
             center.add(mistake);
         }
