@@ -165,6 +165,7 @@ public final class WordEditPanel extends GrayPanel {
                         ex.printStackTrace();
                     }
                 }
+
             }
         });
         center2.add(deleteLabel);

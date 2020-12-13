@@ -73,9 +73,16 @@ public class Main {
             List<Word> list = new ArrayList<>();
             for (int i = 1; i <= vocabSize; i++) {
                 try {
-                    FileInputStream fis = new FileInputStream(check.getAbsoluteFile()+"\\"+fileNames[i-1]);
+                    File word = new File(check.getAbsoluteFile()+"\\"+fileNames[i-1]);
+                    FileInputStream fis = new FileInputStream(word);
                     ObjectInputStream oos = new ObjectInputStream(fis);
-                    list.add((Word)oos.readObject());
+                    Word w = (Word)oos.readObject();
+                    if((w.engVersions.size()==0)&&(w.rusVersions.size()==0)){
+                        word.delete();
+                        System.out.println("Удален"+fileNames[i-1]);
+                        fis.close();
+                        continue;}
+                    list.add(w);
                     oos.close();
                 } catch (Exception e) {
                     e.printStackTrace();
