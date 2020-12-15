@@ -77,13 +77,11 @@ public class Main {
                     FileInputStream fis = new FileInputStream(word);
                     ObjectInputStream oos = new ObjectInputStream(fis);
                     Word w = (Word)oos.readObject();
-                    if((w.engVersions.size()==0)&&(w.rusVersions.size()==0)){
-                        word.delete();
+                    oos.close();
+                    if((w.engVersions.size()==0)&&(w.rusVersions.size()==0)&&(word.delete())){
                         System.out.println("Удален"+fileNames[i-1]);
-                        fis.close();
                         continue;}
                     list.add(w);
-                    oos.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

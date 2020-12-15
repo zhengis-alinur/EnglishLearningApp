@@ -152,6 +152,7 @@ public final class WordEditPanel extends GrayPanel {
                             FileOutputStream fos = new FileOutputStream(wordPath);
                             ObjectOutputStream oos = new ObjectOutputStream(fos);
                             oos.writeObject(readword);
+                            oos.close();
                             break;
                         }
                         if(readword.engVersions.contains(deleteWordField.getText())){
@@ -159,13 +160,27 @@ public final class WordEditPanel extends GrayPanel {
                             FileOutputStream fos = new FileOutputStream(wordPath);
                             ObjectOutputStream oos = new ObjectOutputStream(fos);
                             oos.writeObject(readword);
+                            oos.close();
                             break;
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 }
-
+                wordList = WordSupport.downloadWords();
+                System.out.println("выполнено");
+                for (Word w : wordList) {
+                    System.out.print("Слово eng:[");
+                    for (String engVer : w.engVersions) {
+                        System.out.print(engVer + ", ");
+                    }
+                    System.out.print("]  rus:[ ");
+                    for (String rusVer : w.rusVersions) {
+                        System.out.print(rusVer + ", ");
+                    }
+                    System.out.println("]");
+                }
+                System.out.println("_____________________________________________");
             }
         });
         center2.add(deleteLabel);
