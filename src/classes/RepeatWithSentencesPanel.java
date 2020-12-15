@@ -12,7 +12,7 @@ import static classes.Constants.*;
 import static classes.Main.*;
 
 public class RepeatWithSentencesPanel extends GrayPanel {
-    File fileWithSentences = new File("D:\\Senteses.txt");
+    File fileWithSentences = new File("D:\\MyWords\\Sentences.txt");
     BufferedWriter bwSentences;
     public RepeatWithSentencesPanel() {
         super();
